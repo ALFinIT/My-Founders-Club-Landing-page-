@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/auth-context'
 import { Logo } from '@/components/logo'
+import { Eye, EyeOff } from 'lucide-react'
 
 export default function SignupPage() {
   const router = useRouter()
@@ -13,6 +14,8 @@ export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -25,10 +28,10 @@ export default function SignupPage() {
       return
     }
 
-    // Strong password policy: min 8 chars, upper, lower, number, special
-    const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/
+    // Strong password policy: min 8 chars, at least one uppercase, one lowercase, and one digit
+    const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
     if (!pwdRegex.test(password)) {
-      setError('Password must be at least 8 characters and include uppercase, lowercase, number and special character')
+      setError('Password must be at least 8 characters and include uppercase, lowercase, and a number')
       return
     }
 
@@ -96,28 +99,45 @@ export default function SignupPage() {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <label className="block text-sm font-medium text-white mb-2">Password</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               required
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-muted-foreground focus:outline-none focus:border-orange-500 transition-colors"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((s) => !s)}
+              className="absolute top-1/2 right-3 -translate-y-1/2 text-white/80 hover:text-white"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+            <p className="text-xs text-muted-foreground mt-2">Minimum 8 characters, include uppercase, lowercase and a number.</p>
           </div>
 
-          <div>
+          <div className="relative">
             <label className="block text-sm font-medium text-white mb-2">Confirm Password</label>
             <input
-              type="password"
+              type={showConfirm ? 'text' : 'password'}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
               required
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-muted-foreground focus:outline-none focus:border-orange-500 transition-colors"
             />
+            <button
+              type="button"
+              onClick={() => setShowConfirm((s) => !s)}
+              className="absolute top-1/2 right-3 -translate-y-1/2 text-white/80 hover:text-white"
+              aria-label={showConfirm ? 'Hide confirm password' : 'Show confirm password'}
+            >
+              {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
 
           <motion.button

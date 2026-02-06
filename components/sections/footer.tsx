@@ -1,80 +1,102 @@
-'use client'
+"use client"
 
 import { motion } from 'framer-motion'
+import { Twitter, Linkedin, Instagram } from 'lucide-react'
+import { Logo } from '@/components/logo'
 
-const footerLinks = [
-  {
-    title: 'Product',
-    links: ['Features', 'Pricing', 'Security', 'Roadmap'],
-  },
-  {
-    title: 'Company',
-    links: ['About', 'Blog', 'Careers', 'Contact'],
-  },
-  {
-    title: 'Resources',
-    links: ['Guides', 'Community', 'Documentation', 'Support'],
-  },
-  {
-    title: 'Legal',
-    links: ['Privacy', 'Terms', 'Cookies', 'Compliance'],
-  },
+const leftLinks = [
+  { label: 'Platform', links: ['Explore Network', 'Opportunities'] },
+]
+
+const midLinks = [
+  { label: 'Privacy', links: ['Privacy Policy', 'Data Usage'] },
+]
+
+const rightLinks = [
+  { label: 'About', links: ['About Us'] },
 ]
 
 export function Footer() {
   return (
-    <footer className="w-full bg-black pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+    <footer className="w-full bg-black pt-16 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Main Title */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
         >
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight text-white uppercase mb-20">
-            My Founders Club
-          </h2>
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14">
+              <Logo />
+            </div>
+            <div>
+              <div className="leading-tight">
+                <span className="block text-2xl sm:text-3xl font-light text-white">My Founders</span>
+                <span className="block text-2xl sm:text-3xl font-light text-white">Club</span>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1 font-light">Build Locally. Champion Regionally. Scale Globally.</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 ml-auto">
+            <a href="https://twitter.com/my_founders_club" target="_blank" rel="noopener noreferrer" className="p-2 text-white bg-white/5 rounded-full hover:bg-white/10 transition-all">
+              <Twitter className="w-4 h-4" />
+            </a>
+            <a href="https://linkedin.com/company/my-founders-club" target="_blank" rel="noopener noreferrer" className="p-2 text-white bg-white/5 rounded-full hover:bg-white/10 transition-all">
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a href="https://instagram.com/my_founders_club" target="_blank" rel="noopener noreferrer" className="p-2 text-white bg-white/5 rounded-full hover:bg-white/10 transition-all">
+              <Instagram className="w-4 h-4" />
+            </a>
+          </div>
         </motion.div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-20 pb-12 border-b border-white/10">
-          {footerLinks.map((section, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <h3 className="text-xs uppercase tracking-widest text-white/70 font-semibold mb-4">
-                {section.title}
-              </h3>
+        {/* Links grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8 border-b border-white/10 pb-8">
+          {leftLinks.map((sec, i) => (
+            <div key={i}>
+              <h3 className="text-xs uppercase tracking-widest text-white/70 font-semibold mb-4">{sec.label}</h3>
               <ul className="space-y-2">
-                {section.links.map((link, idx) => (
+                {sec.links.map((l, idx) => (
                   <li key={idx}>
-                    <a
-                      href="#"
-                      className="text-sm text-white/60 hover:text-white transition-colors font-light"
-                    >
-                      {link}
-                    </a>
+                    <a href="#" className="text-sm text-white/60 hover:text-white transition-colors font-light">{l}</a>
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
+          ))}
+
+          {midLinks.map((sec, i) => (
+            <div key={i}>
+              <h3 className="text-xs uppercase tracking-widest text-white/70 font-semibold mb-4">{sec.label}</h3>
+              <ul className="space-y-2">
+                {sec.links.map((l, idx) => (
+                  <li key={idx}>
+                    <a href="#" className="text-sm text-white/60 hover:text-white transition-colors font-light">{l}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {rightLinks.map((sec, i) => (
+            <div key={i}>
+              <h3 className="text-xs uppercase tracking-widest text-white/70 font-semibold mb-4">{sec.label}</h3>
+              <ul className="space-y-2">
+                {sec.links.map((l, idx) => (
+                  <li key={idx}>
+                    <a href="#" className="text-sm text-white/60 hover:text-white transition-colors font-light">{l}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
 
-        {/* Bottom Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50 tracking-wider"
-        >
-          <p className="uppercase font-light">© 2025 My Founders Club. All Rights Reserved.</p>
-          <p className="uppercase font-light">Design & Development</p>
+        <motion.div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50 tracking-wider">
+          <p className="font-light">© 2026 My Founders Club. All rights reserved.</p>
+          <p className="font-light">Platform · Explore Network · Opportunities</p>
         </motion.div>
       </div>
     </footer>
