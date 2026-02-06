@@ -31,10 +31,6 @@ export function Footer() {
               <Logo />
             </div>
             <div>
-              <div className="leading-tight">
-                <span className="block text-2xl sm:text-3xl font-light text-white">My Founders</span>
-                <span className="block text-2xl sm:text-3xl font-light text-white">Club</span>
-              </div>
               <p className="text-sm text-muted-foreground mt-1 font-light">Build Locally. Champion Regionally. Scale Globally.</p>
             </div>
           </div>
