@@ -3,8 +3,9 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Logo } from '@/components/logo'
-import { Download } from 'lucide-react'
+import { Download, Home } from 'lucide-react'
 
 export default function AdminPage() {
   const router = useRouter()
@@ -44,7 +45,18 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative">
+        {/* Home Button - Bottom Right */}
+        <motion.button
+          onClick={() => router.push('/')}
+          className="fixed bottom-8 right-8 p-3 glass rounded-full hover:shadow-xl transition-all"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          title="Go to home"
+        >
+          <Home size={24} className="text-white" />
+        </motion.button>
+
         <motion.div className="mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <Logo />
         </motion.div>
