@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { Logo } from '@/components/logo'
+import { Download } from 'lucide-react'
 
 export default function AdminPage() {
   const router = useRouter()
@@ -93,16 +94,16 @@ export default function AdminPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword((s) => !s)}
-                className="absolute top-1/2 right-3 -translate-y-1/2 text-white/80 hover:text-white p-1"
+                className="absolute top-1/2 right-3 -translate-y-1/2 text-white hover:text-orange-500 transition-colors p-2 cursor-pointer z-10"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-5 0-9.27-3-11-8 1.02-2.6 2.71-4.73 4.76-6.01" />
                     <path d="M1 1l22 22" />
                   </svg>
                 ) : (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>
@@ -129,7 +130,7 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-black p-8">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-12">
         <h1 className="text-4xl font-bold text-white">Admin Dashboard</h1>
         <motion.button
           onClick={handleLogout}
@@ -141,30 +142,38 @@ export default function AdminPage() {
         </motion.button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="space-y-12">
         {/* Founders Section */}
         <motion.div
-          className="glass rounded-2xl p-8"
+          className="rounded-2xl p-8"
+          style={{
+            background: 'linear-gradient(145deg, rgba(25, 25, 25, 1), rgba(12, 12, 12, 1))',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+          }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            <span>👨‍💼</span> Founders
-          </h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-white">Founders List</h2>
+          </div>
           <FoundersList />
         </motion.div>
 
         {/* Investors Section */}
         <motion.div
-          className="glass rounded-2xl p-8"
+          className="rounded-2xl p-8"
+          style={{
+            background: 'linear-gradient(145deg, rgba(25, 25, 25, 1), rgba(12, 12, 12, 1))',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+          }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            <span>💼</span> Investors
-          </h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-white">Investors List</h2>
+          </div>
           <InvestorsList />
         </motion.div>
       </div>
@@ -184,7 +193,7 @@ function FoundersList() {
     const foundersData = users
       .filter((user: any) => {
         const profile = profiles.find((p: any) => p.userId === user.id)
-        return profile?.role === 'founder'
+        return profile?.role === 'founder' || profile?.type === 'founder'
       })
       .map((user: any) => {
         const profile = profiles.find((p: any) => p.userId === user.id)
@@ -192,7 +201,13 @@ function FoundersList() {
           id: user.id,
           email: user.email,
           name: user.name,
-          ...profile
+          company: profile?.company || 'N/A',
+          stage: profile?.stage || 'N/A',
+          sector: profile?.sector || 'N/A',
+          location: profile?.location || 'N/A',
+          cofounderNeeded: profile?.cofounderNeeded ? 'Yes' : 'No',
+          updatedAt: new Date().toLocaleDateString(),
+          updatedBy: 'Founder'
         }
       })
 
@@ -200,32 +215,89 @@ function FoundersList() {
     setLoading(false)
   }, [])
 
+  const downloadExcel = () => {
+    // Create CSV data
+    const headers = ['Name', 'Email', 'Company', 'Stage', 'Sector', 'Location', 'Co-founder Needed', 'Updated By', 'Updated At']
+    const rows = founders.map(f => [
+      f.name,
+      f.email,
+      f.company,
+      f.stage,
+      f.sector,
+      f.location,
+      f.cofounderNeeded,
+      f.updatedBy,
+      f.updatedAt
+    ])
+
+    // Create CSV content
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n')
+
+    // Download
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `founders_${new Date().toISOString().split('T')[0]}.csv`
+    link.click()
+  }
+
   if (loading) {
     return <div className="text-muted-foreground">Loading founders...</div>
   }
 
   return (
     <div className="space-y-4">
+      <div className="flex justify-end mb-4">
+        <motion.button
+          onClick={downloadExcel}
+          className="flex items-center gap-2 px-4 py-2 bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500 text-orange-400 rounded-lg transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Download size={18} />
+          Download (CSV)
+        </motion.button>
+      </div>
+
       {founders.length === 0 ? (
-        <p className="text-muted-foreground">No founders registered yet</p>
+        <p className="text-muted-foreground text-center py-8">No founders registered yet</p>
       ) : (
-        founders.map((founder) => (
-          <motion.div
-            key={founder.id}
-            className="bg-white/5 border border-white/10 rounded-lg p-4"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <p className="text-white font-semibold">{founder.name}</p>
-            <p className="text-sm text-muted-foreground">{founder.email}</p>
-            {founder.companyName && (
-              <p className="text-sm text-orange-400 mt-2">Company: {founder.companyName}</p>
-            )}
-            {founder.industry && (
-              <p className="text-sm text-blue-400">Industry: {founder.industry}</p>
-            )}
-          </motion.div>
-        ))
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-white/10">
+                <th className="px-4 py-3 text-left text-white font-semibold">Name</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Email</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Company</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Stage</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Sector</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Location</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Co-founder</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Updated By</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Updated At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {founders.map((founder, idx) => (
+                <tr key={founder.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 text-white">{founder.name}</td>
+                  <td className="px-4 py-3 text-gray-400">{founder.email}</td>
+                  <td className="px-4 py-3 text-orange-400">{founder.company}</td>
+                  <td className="px-4 py-3 text-blue-400">{founder.stage}</td>
+                  <td className="px-4 py-3 text-green-400">{founder.sector}</td>
+                  <td className="px-4 py-3 text-purple-400">{founder.location}</td>
+                  <td className="px-4 py-3 text-yellow-400">{founder.cofounderNeeded}</td>
+                  <td className="px-4 py-3 text-white">{founder.updatedBy}</td>
+                  <td className="px-4 py-3 text-gray-400">{founder.updatedAt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   )
@@ -243,7 +315,7 @@ function InvestorsList() {
     const investorsData = users
       .filter((user: any) => {
         const profile = profiles.find((p: any) => p.userId === user.id)
-        return profile?.role === 'investor'
+        return profile?.role === 'investor' || profile?.type === 'investor'
       })
       .map((user: any) => {
         const profile = profiles.find((p: any) => p.userId === user.id)
@@ -251,7 +323,13 @@ function InvestorsList() {
           id: user.id,
           email: user.email,
           name: user.name,
-          ...profile
+          fundName: profile?.fundName || 'N/A',
+          investmentStage: profile?.investmentStage || 'N/A',
+          sectorFocus: Array.isArray(profile?.sectorFocus) ? profile.sectorFocus.join(', ') : 'N/A',
+          geographyFocus: Array.isArray(profile?.geographyFocus) ? profile.geographyFocus.join(', ') : 'N/A',
+          checkSize: profile?.checkSize || 'N/A',
+          updatedAt: new Date().toLocaleDateString(),
+          updatedBy: 'Investor'
         }
       })
 
@@ -259,35 +337,89 @@ function InvestorsList() {
     setLoading(false)
   }, [])
 
+  const downloadExcel = () => {
+    // Create CSV data
+    const headers = ['Name', 'Email', 'Fund Name', 'Investment Stage', 'Sector Focus', 'Geography Focus', 'Check Size', 'Updated By', 'Updated At']
+    const rows = investors.map(i => [
+      i.name,
+      i.email,
+      i.fundName,
+      i.investmentStage,
+      i.sectorFocus,
+      i.geographyFocus,
+      i.checkSize,
+      i.updatedBy,
+      i.updatedAt
+    ])
+
+    // Create CSV content
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n')
+
+    // Download
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `investors_${new Date().toISOString().split('T')[0]}.csv`
+    link.click()
+  }
+
   if (loading) {
     return <div className="text-muted-foreground">Loading investors...</div>
   }
 
   return (
     <div className="space-y-4">
+      <div className="flex justify-end mb-4">
+        <motion.button
+          onClick={downloadExcel}
+          className="flex items-center gap-2 px-4 py-2 bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500 text-orange-400 rounded-lg transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Download size={18} />
+          Download (CSV)
+        </motion.button>
+      </div>
+
       {investors.length === 0 ? (
-        <p className="text-muted-foreground">No investors registered yet</p>
+        <p className="text-muted-foreground text-center py-8">No investors registered yet</p>
       ) : (
-        investors.map((investor) => (
-          <motion.div
-            key={investor.id}
-            className="bg-white/5 border border-white/10 rounded-lg p-4"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <p className="text-white font-semibold">{investor.name}</p>
-            <p className="text-sm text-muted-foreground">{investor.email}</p>
-            {investor.fundName && (
-              <p className="text-sm text-orange-400 mt-2">Fund: {investor.fundName}</p>
-            )}
-            {investor.investmentSize && (
-              <p className="text-sm text-green-400">Investment Size: ${investor.investmentSize}</p>
-            )}
-            {investor.focusArea && (
-              <p className="text-sm text-purple-400">Focus Area: {investor.focusArea}</p>
-            )}
-          </motion.div>
-        ))
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-white/10">
+                <th className="px-4 py-3 text-left text-white font-semibold">Name</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Email</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Fund Name</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Investment Stage</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Sector Focus</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Geography Focus</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Check Size</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Updated By</th>
+                <th className="px-4 py-3 text-left text-white font-semibold">Updated At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {investors.map((investor, idx) => (
+                <tr key={investor.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 text-white">{investor.name}</td>
+                  <td className="px-4 py-3 text-gray-400">{investor.email}</td>
+                  <td className="px-4 py-3 text-orange-400">{investor.fundName}</td>
+                  <td className="px-4 py-3 text-blue-400">{investor.investmentStage}</td>
+                  <td className="px-4 py-3 text-green-400">{investor.sectorFocus}</td>
+                  <td className="px-4 py-3 text-purple-400">{investor.geographyFocus}</td>
+                  <td className="px-4 py-3 text-yellow-400">{investor.checkSize}</td>
+                  <td className="px-4 py-3 text-white">{investor.updatedBy}</td>
+                  <td className="px-4 py-3 text-gray-400">{investor.updatedAt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   )
