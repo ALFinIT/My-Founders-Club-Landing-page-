@@ -92,7 +92,7 @@ body::-webkit-scrollbar {
   /* Body text and inline elements remain lighter but use the foreground color */
   p, li, a, span, button {
     font-weight: 300 !important;
-    color: color: var(--foreground);
+    color: var(--foreground);
     letter-spacing: 0.02em;
   }
   /* Enhanced animations */
