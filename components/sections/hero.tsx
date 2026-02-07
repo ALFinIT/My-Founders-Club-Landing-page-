@@ -43,25 +43,7 @@ export function HeroSection() {
     <section className="relative min-h-screen w-full overflow-hidden pt-20 lg:pt-32 px-4 sm:px-6 lg:px-8">
       {/* Background image removed - using MFC theme from globals.css */}
 
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 right-10 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-10 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 10, repeat: Infinity }}
-        />
-      </div>
+      {/* Minimal design - decorative elements removed for better accessibility and clarity */}
 
       <motion.div
         className="relative z-10 max-w-5xl text-left flex flex-col items-start"
@@ -75,10 +57,10 @@ export function HeroSection() {
             className="space-y-4"
             variants={itemVariants}
           >
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-tight">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
               <span className="block text-white">Build Locally.</span>
-              <span className="block">Champion Regionally.</span>
-              <span className="block gradient-text">Scale Globally.</span>
+              <span className="block text-white">Champion Regionally.</span>
+              <span className="block text-orange-400">Scale Globally.</span>
             </h1>
           </motion.div>
 
@@ -99,7 +81,7 @@ export function HeroSection() {
 
         {/* Subtext */}
         <motion.p
-          className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-12 leading-relaxed font-light"
+          className="text-lg sm:text-xl text-gray-200 max-w-2xl mb-12 leading-relaxed font-normal"
           variants={itemVariants}
         >
           Platform connecting founders, capital, and opportunity across the Gulf startup ecosystem.
@@ -174,8 +156,8 @@ export function HeroSection() {
     ))}
   </div>
 
-  <p className="text-muted-foreground">
-    Join <span className="text-white font-light">500+</span> founders in the Gulf ecosystem
+  <p className="text-gray-200">
+    Join <span className="text-white font-semibold">500+</span> founders in the Gulf ecosystem
   </p>
 </motion.div>
       </motion.div>

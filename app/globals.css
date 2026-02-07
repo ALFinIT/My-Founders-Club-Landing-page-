@@ -201,6 +201,15 @@ body::-webkit-scrollbar {
   ::-webkit-scrollbar {
     display: none;
   }
+
+  /* Background styling matching landing page */
+  .bg-page {
+    background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('/MFC%20theme.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 @layer utilities {
