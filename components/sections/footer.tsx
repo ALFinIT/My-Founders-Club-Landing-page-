@@ -1,9 +1,8 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { Twitter, Linkedin, Instagram, Upload } from 'lucide-react'
+import { Twitter, Linkedin, Instagram } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
 
 const leftLinks = [
   { label: 'Platform', links: ['Explore Network', 'Opportunities'] },
@@ -18,18 +17,6 @@ const rightLinks = [
 ]
 
 export function Footer() {
-  const [logoPath, setLogoPath] = useState('/App Icon Orange.svg')
-
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        setLogoPath(event.target?.result as string)
-      }
-      reader.readAsDataURL(file)
-    }
-  }
 
   return (
     <footer className="w-full bg-black pt-16 pb-8 px-4 sm:px-6 lg:px-8">
@@ -41,25 +28,14 @@ export function Footer() {
           className="mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
         >
           <div className="flex items-center gap-4">
-            <div className="relative group">
-              <div className="w-14 h-14 rounded-lg overflow-hidden bg-white/10 flex items-center justify-center">
-                <Image 
-                  src={logoPath} 
-                  alt="Footer Logo" 
-                  width={56} 
-                  height={56}
-                  className="object-contain p-2"
-                />
-              </div>
-              <label className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg cursor-pointer">
-                <Upload className="w-4 h-4 text-white" />
-                <input 
-                  type="file" 
-                  accept="image/*" 
-                  onChange={handleLogoUpload}
-                  className="hidden"
-                />
-              </label>
+            <div className="w-20 h-20 rounded-lg overflow-hidden bg-white/10 flex items-center justify-center flex-shrink-0">
+              <Image 
+                src="/App Icon Orange.svg" 
+                alt="My Founders Club Logo" 
+                width={80} 
+                height={80}
+                className="object-contain p-2"
+              />
             </div>
             <div>
   <p className="text-2xl md:text-3xl font-bold tracking-wide text-white">
