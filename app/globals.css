@@ -20,7 +20,8 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: #ccc;
+  /* Brighter site-wide text for improved readability */
+  color: #f5f5f5;
   overflow-x: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -62,21 +63,36 @@ body::-webkit-scrollbar {
 
   /* Typography utilities - Footer style */
   .title-uppercase {
-    @apply uppercase text-white font-light tracking-tight;
+    @apply uppercase text-white font-semibold tracking-tight;
   }
 
   .section-title {
-    @apply font-light text-white tracking-tight;
+    @apply font-semibold text-white tracking-tight;
   }
 
   .label-uppercase {
     @apply uppercase text-xs tracking-widest font-semibold text-white/70;
   }
 
-  /* Global footer-like typography override (prefer light weight site-wide) */
-  /* This will make headings and body text use the footer's light style by default. */
-  h1, h2, h3, h4, h5, h6, p, li, a, span, button {
+  /* Typography overrides: keep body light but make headings/subheadings bold & brighter */
+  /* Headings (primary) */
+  h1, h2, h3 {
+    font-weight: 700 !important;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+  }
+
+  /* Subheadings */
+  h4, h5, h6 {
+    font-weight: 600 !important;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+  }
+
+  /* Body text and inline elements remain lighter but use the foreground color */
+  p, li, a, span, button {
     font-weight: 300 !important;
+    color: color: var(--foreground);
     letter-spacing: 0.02em;
   }
   /* Enhanced animations */
@@ -196,7 +212,7 @@ body::-webkit-scrollbar {
 @layer base {
   :root {
     --background: 0 0% 1.5%;
-    --foreground: 0 0% 80%;
+    --foreground: 0 0% 92%;
     --card: 0 0% 8%;
     --card-foreground: 0 0% 80%;
     --popover: 0 0% 8%;
@@ -231,7 +247,7 @@ body::-webkit-scrollbar {
   }
   .dark {
     --background: 0 0% 1.5%;
-    --foreground: 0 0% 80%;
+    --foreground: 0 0% 92%;
     --card: 0 0% 8%;
     --card-foreground: 0 0% 80%;
     --popover: 0 0% 8%;
