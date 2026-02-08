@@ -15,27 +15,27 @@ const faqs = [
   },
   {
     question: 'Who should not apply?',
-    answer: "If you're in the ideation phase, looking only for validation, not ready to commit 12+ months, or just seeking a discount—this isn't for you. We prioritize founders who are execution-driven.",
+    answer: "If you're in the ideation phase, looking only for validation, not ready to commit 12+ months, or just seeking a discount this isn't for you. We prioritize founders who are execution driven.",
   },
   {
     question: 'Is the AED 500 commitment fee refundable?',
-    answer: "Yes, it's fully refundable if you're not accepted. This isn't a payment—it's a signal of serious intent. If you don't make the shortlist, you get your money back.",
+    answer: "Yes, it's fully refundable if you're not accepted. This isn't a payment it's a signal of serious intent. If you don't make the shortlist, you get your money back.",
   },
   {
     question: 'Can I apply if I\'m outside MENA/GCC?',
-    answer: "Short answer: Yes, if you're building for the Gulf market or expanding into MENA. We're MENA-first but globally open to founders targeting our ecosystem.",
+    answer: "Short answer: Yes, if you're building for the Gulf market or expanding into MENA. We're MENA first but globally open to founders targeting our ecosystem.",
   },
   {
     question: 'How long is my access valid?',
-    answer: 'Founder Access Pass (WhatsApp) is month-to-month with no lock-in contract. Scale and Enterprise plans are project-based and customized to your needs.',
+    answer: 'Founder Access Pass (WhatsApp) is month to month with no lock in contract. Scale and Enterprise plans are project based and customized to your needs.',
   },
   {
-    question: 'Do you offer money-back guarantees?',
+    question: 'Do you offer money back guarantees?',
     answer: "We don't promise outcomes, but we do promise transparency. If we're not delivering value within the first 30 days, we'll refund 100% of your fee.",
   },
   {
     question: 'How is this different from other founder communities?',
-    answer: "We're not a large, open community. We're a curated shortlist designed for signal—not noise. Every member is vetted. Your network here is smaller, higher quality, and more actionable.",
+    answer: "We're not a large, open community. We're a curated shortlist designed for signal not noise. Every member is vetted. Your network here is smaller, higher quality, and more actionable.",
   },
 ]
 

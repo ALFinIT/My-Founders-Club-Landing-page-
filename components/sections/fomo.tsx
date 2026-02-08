@@ -29,7 +29,7 @@ export function FOMOSection() {
               This isn't a waitlist.
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed font-light">
-              It's a <span className="text-orange-400 font-semibold">shortlist</span>. We're building the Gulf's most selective founder community—not for gatekeeping, but for signal. Every member has been vetted, qualified, and committed to moving fast.
+              It's a <span className="text-orange-400 font-semibold">shortlist</span>. We're building the Gulf's most selective founder community not for gatekeeping, but for signal. Every member has been vetted, qualified, and committed to moving fast.
             </p>
           </div>
 

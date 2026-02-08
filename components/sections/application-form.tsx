@@ -56,7 +56,7 @@ export function ApplicationFormSection() {
         {/* Form */}
         <motion.form
           onSubmit={handleSubmit}
-          className="p-8 rounded-2xl glass border border-teal-500/20 space-y-6"
+          className="p-8 rounded-2xl glass border border-orange-500/20 space-y-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
@@ -71,7 +71,7 @@ export function ApplicationFormSection() {
               value={formData.fullName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-teal-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-orange-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
               placeholder="Your name"
             />
           </div>
@@ -85,7 +85,7 @@ export function ApplicationFormSection() {
               value={formData.companyName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-teal-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-orange-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
               placeholder="Your company"
             />
           </div>
@@ -99,7 +99,7 @@ export function ApplicationFormSection() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-teal-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-orange-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
               placeholder="your@email.com"
             />
           </div>
@@ -113,7 +113,7 @@ export function ApplicationFormSection() {
               value={formData.phone}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-teal-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-orange-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
               placeholder="+971 XX XXX XXXX"
             />
           </div>
@@ -127,7 +127,7 @@ export function ApplicationFormSection() {
               onChange={handleChange}
               required
               rows={2}
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-teal-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition resize-none"
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-orange-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition resize-none"
               placeholder="Be clear and concise..."
             />
           </div>
@@ -143,21 +143,21 @@ export function ApplicationFormSection() {
               name="proofOfWork"
               value={formData.proofOfWork}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-teal-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-orange-500/20 text-white placeholder-muted-foreground focus:border-orange-500 focus:outline-none transition"
               placeholder="Link to website, product, or news"
             />
           </div>
 
           {/* Commitment amount info */}
           <motion.div
-            className="p-4 rounded-lg bg-teal-500/10 border border-teal-500/20"
+            className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/20"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
             <div className="flex gap-3">
-              <AlertCircle className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
               <div className="text-sm">
                 <p className="text-white font-medium mb-1">Commitment Fee: AED 500</p>
                 <p className="text-muted-foreground text-xs font-light">
